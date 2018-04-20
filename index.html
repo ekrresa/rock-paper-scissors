@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var playerScore = 0;
+        var computerScore = 0;
+        var choices = ['rock', 'paper', 'scissors'];
+
+        // Validates that player enters his/her choice correctly
+        function playerSelect() {
+            var playerPlay = prompt('Enter your choice of Rock or Paper or Scissors').toLowerCase();
+            //Checks for no input
+            if (playerPlay === null || playerPlay === undefined ) {
+                alert('You did not enter any input');
+                playerSelect();
+            }
+            return playerPlay;
+        }
+        
+        function computerSelect() {
+            var computerPlay = choices[Math.floor(Math.random() * 3)];
+            return computerPlay;
+        }
+
+        //Plays a round of the game
+        function playRound(playerSelection, computerSelection) {
+            if (playerSelection === computerSelection) {
+                return 'No winner! This round was a draw!';
+            }
+            else if (playerSelection === 'rock' && computerSelection === 'paper') {
+                computerScore++;
+                return 'You lose! ' + computerSelection + ' beats ' + playerSelection;
+            }
+            else if (playerSelection === 'rock' && computerSelection === 'scissors') {
+                playerScore++;
+                return 'You win! ' + playerSelection + ' beats ' + computerSelection;
+            }
+            else if (playerSelection === 'paper' && computerSelection === 'scissors') {
+                computerScore++;
+                return 'You lose! ' + computerSelection + ' beats ' + playerSelection;
+            }
+            else if (playerSelection === 'paper' && computerSelection === 'rock') {
+                playerScore++;
+                return 'You win! ' + playerSelection + ' beats ' + computerSelection;
+            }
+            else if (playerSelection === 'scissors' && computerSelection === 'rock') {
+                computerScore++;
+                return 'You lose! ' + computerSelection + ' beats ' + playerSelection;
+            }
+            else if (playerSelection === 'scissors' && computerSelection === 'paper') {
+                playerScore++;
+                return 'You win! ' + playerSelection + ' beats ' + computerSelection;
+            }
+        }
+        
+        function game() {
+            for (let i = 1; i <= 5; i++) {
+                console.log('Round ' + i);
+                console.log(playRound(playerSelect(), computerSelect()));
+                console.log('Player: ' + playerScore + '\n' + 'Computer: ' + computerScore);
+                
+                if (playerScore === 3 || computerScore === 3) {
+                    break;
+                }
+                else if (i === 4 && Math.abs(playerScore - computerScore) === 2) {
+                    break;
+                }
+            }
+
+            if (playerScore < computerScore) {
+                console.log('YOU LOSE! BETTER LUCK NEXT TIME!');
+            }
+            else if (playerScore > computerScore) {
+                console.log('YOU WIN! GOOD JOB!');
+            }
+            else {
+                console.log('It was a tie! Wanna go again?');
+            }
+        }
+
+        game();
+    </script>
+</body>
+</html>
